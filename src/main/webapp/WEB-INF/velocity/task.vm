@@ -1,0 +1,21 @@
+<html>
+<body>
+<h2>task</h2>
+<div>
+		<table id="rlstable" class="table table-bordered table-striped sortable">
+             <thead>
+                <th>ID</th>
+                <th>VALUE</th>
+             </thead>
+             <tbody>
+                 #foreach($c in $data)
+                    <tr>
+                      <td>$!c.id</td>
+                      <td>$!c.value</td>
+                    </tr>
+                 #end
+             </tbody>
+          </table>
+</div>
+</body>
+</html>
