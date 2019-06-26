@@ -13,7 +13,6 @@
 
     <!-- Scans the classpath for annotated components that will be auto-registered as Spring beans.For example @Controller and @Service . Make sure to set the correct base-package-->
     <context:component-scan base-package="action"/>
-    <context:component-scan base-package="dao"/>
     <context:component-scan base-package="service"/>
     
     <bean id="velocityConfig"
@@ -26,32 +25,14 @@
             </props>
         </property>
     </bean>
-    
-    <bean id="dataSource"
-          class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-        <property name="driverClassName">
-            <value>org.apache.derby.jdbc.ClientDriver</value>
-        </property>
-        <property name="url">
-            <value>jdbc:derby://localhost:1527/d:/test/db</value>
-        </property>
-        <property name="username">
-            <value>tom</value>
-        </property>
-        <property name="password">
-            <value>123</value>
-        </property>
+
+    <bean id="appContext" class="service.AppContext"/>
+
+    <!-- Bean holding environmental configuration. -->
+    <bean id="env" class="service.Environments">
+        <property name="energyPath" value="${energy.path}"/>
     </bean>
     
-    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-        <property name="dataSource" ref="dataSource"/>
-    </bean>
-
-     <bean id="taskDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
-        <property name="mapperInterface" value="dao.TaskDao"/>
-        <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
-    </bean>
-
     <bean id="viewResolver"
           class="org.springframework.web.servlet.view.velocity.VelocityViewResolver">
         <property name="cache" value="true"/>

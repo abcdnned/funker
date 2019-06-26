@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- version="3.1.3" -->
+<configuration>
+    <appender name="console.debug.out" class="ch.qos.logback.core.ConsoleAppender">
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>DEBUG</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <encoder>
+            <Pattern>%d{yyyy-MM-dd HH:mm:ss} [%-5p] [%t] [%c] %m%n</Pattern>
+        </encoder>
+    </appender>
+    <appender name="console.info.out" class="ch.qos.logback.core.ConsoleAppender">
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>INFO</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <encoder>
+            <Pattern>%d{yyyy-MM-dd HH:mm:ss} [%-5p] [%t] [%c] %m%n</Pattern>
+        </encoder>
+    </appender>
+    <appender name="console.warn.out" class="ch.qos.logback.core.ConsoleAppender">
+        <target>System.err</target>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>WARN</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <encoder>
+            <Pattern>%d{yyyy-MM-dd HH:mm:ss} [%-5p] [%t] [%c] %m%n</Pattern>
+        </encoder>
+    </appender>
+    <appender name="console.error.out" class="ch.qos.logback.core.ConsoleAppender">
+        <target>System.err</target>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>ERROR</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <encoder>
+            <Pattern>%d{yyyy-MM-dd HH:mm:ss} [%-5p] [%t] [%c] %m%n</Pattern>
+        </encoder>
+    </appender>
+
+    <appender name="funker.project.debug" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${log.basepath}/funker/funker-debug.log</file>
+        <append>true</append>
+        <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+            <fileNamePattern>${log.basepath}/funker/funker-debug.%i.log.gz</fileNamePattern>
+            <minIndex>1</minIndex>
+            <maxIndex>10</maxIndex>
+        </rollingPolicy>
+        <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+            <maxFileSize>64MB</maxFileSize>
+        </triggeringPolicy>
+        <encoder>
+            <Pattern>%d{yyyy-MM-dd HH:mm:ss} [%-5p] [%t] [%c] %m%n</Pattern>
+        </encoder>
+    </appender>
+
+    <root level="DEBUG">
+        <!--<appender-ref ref="console.debug.out" />-->
+        <appender-ref ref="console.info.out" />
+        <appender-ref ref="console.warn.out"/>
+        <appender-ref ref="console.error.out"/>
+
+        <!--<appender-ref ref="funker.project.debug"/>-->
+        <appender-ref ref="funker.project.debug"/>
+    </root>
+</configuration>

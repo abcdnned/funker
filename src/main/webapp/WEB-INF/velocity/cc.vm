@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<body>
+    <script>
+        function getValue(id) {
+            var el = document.getElementById(id);
+            return parseFloat(el.value);
+        }
+
+        function radioChecked(id) {
+            var el = document.getElementById(id);
+            return el.checked;
+        }
+
+        function caculatePeriodicPayment(event) {
+            var year = getValue("year");
+            var price = getValue("price");
+            var money = getValue("money");
+            var interest = getValue("interest");
+            var business_interest = getValue("business_interest");
+
+            var tax = price * 0.01;
+            if (radioChecked("two")){
+                tax += price * 0.01;
+            } else if (radioChecked("nope")) {
+                tax += price * 0.066;
+            }
+            var fucked = price * 0.02;
+            var left = money - tax - fucked;
+            document.getElementById("tax").innerText = tax;
+            document.getElementById("fucked").innerText = fucked;
+
+            var loan_years = Math.min(30, Math.max(35 - 2017 + year, 15));
+            var gov_periodic_payment = caculate_periodic_paymen(100, interest, loan_years);
+            var a = price - left - 100;
+            var business_periodic_payment = caculate_periodic_paymen(a, business_interest, 30);
+            var periodic_payment = gov_periodic_payment + business_periodic_payment;
+            var total_payment = gov_periodic_payment * loan_years * 12 + 360 * business_periodic_payment;
+            document.getElementById("periodic_payment").innerText = periodic_payment;
+            document.getElementById("total_payment").innerText = total_payment / 10000;
+            document.getElementById("total_interest").innerText = total_payment / 10000 + left - price;
+
+
+        }
+
+        function caculate_periodic_paymen(a, i, n) {
+            var n = n * 12;
+            var a = a * 10000;
+            var i = i / 100 / 12;
+            var periodic_payment = a * i + (a * i) / (Math.pow(1 + i, n)-1);
+            return periodic_payment;
+        }
+    </script>
+
+<div>
+    <p>公积金贷满，剩余30年商贷</p>
+    <br>
+    房产年份<br>
+    <input id="year" type="text" name="since">
+    <br>
+    价格 (w)<br>
+    <input id = "price" type="text" name="price" >
+    <br>
+    公积金利率 (%)<br>
+    <input id = "interest" type="text" name="interest" value="3.25" >
+    <br>
+    商贷利率 (%)<br>
+    <input id = "business_interest" type="text" name="business_interest" value="4.9" >
+    <br>
+    手头资金 (w)<br>
+    <input id = "money" type="text" name="money" value="185">
+    <br>
+    <br>
+    <input type="radio" name="house_type" id="fiveonly" >满五唯一</input>
+    <input type="radio" name="house_type" id="two" checked>满二</input>
+    <input type="radio" name="house_type" id="nope">不满二</input>
+    <br>
+    <br>
+    <button id="submit" onclick="caculatePeriodicPayment()">计算</button>
+    <br>
+    <br>
+    <span >月供：</span>
+    <span id="periodic_payment"></span>
+    <br>
+    <span >总还款 (w)：</span>
+    <span id="total_payment"></span>
+    <br>
+    <span >总利息 (w)：</span>
+    <span id="total_interest"></span>
+    <br>
+    <span >交易税 (w)：</span>
+    <span id="tax"></span>
+    <br>
+    <span >中介费 (w)：</span>
+    <span id="fucked"></span>
+</div> 
+
+</body>
+</html>

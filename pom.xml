@@ -129,6 +129,15 @@
 
 	<build>
 		<finalName>funker</finalName>
+        <resources>
+            <resource>
+                <directory>${project.basedir}/src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+        <filters>
+            <filter>local.properties</filter>
+        </filters>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
