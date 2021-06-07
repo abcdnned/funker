@@ -19,7 +19,7 @@
 
 		<spring.version>4.1.6.RELEASE </spring.version>
 		<mybatis.version>3.3.0</mybatis.version>
-		<logback.version>1.0.13</logback.version>
+		<logback.version>1.2.0</logback.version>
 	</properties>
 
 	<dependencies>
